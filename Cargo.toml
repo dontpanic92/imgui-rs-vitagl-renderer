@@ -1,0 +1,19 @@
+[package]
+name = "imgui-rs-vitagl-renderer"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+imgui = { version = "0.10", features = ["docking"] }
+vitagl-sys = { git = "https://github.com/dontpanic92/vitagl-sys" }
+vitasdk-sys = { git = "https://github.com/dontpanic92/vitasdk-sys", branch = "yaobow"}
+
+[build-dependencies]
+cc = "1.0"
+
+[workspace]
+members = [
+    "example/simple",
+]

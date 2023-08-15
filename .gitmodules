@@ -1,0 +1,3 @@
+[submodule "imgui-vita"]
+	path = imgui-vita
+	url = https://github.com/Rinnegatamante/imgui-vita
