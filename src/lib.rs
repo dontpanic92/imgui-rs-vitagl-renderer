@@ -159,31 +159,13 @@ impl ImguiRenderer {
         unsafe {
             let io = &mut *imgui::sys::igGetIO();
 
-            let mut w = 0;
-            let mut h = 0;
-            let mut display_w = 0;
-            let mut display_h = 0;
             let mut viewport: [i32; 4] = [0; 4];
             glGetIntegerv(GL_VIEWPORT, viewport.as_mut_ptr());
-            display_w = viewport[2];
-            display_h = viewport[3];
-            w = display_w;
-            h = display_h;
+            let w = viewport[2];
+            let h = viewport[3];
 
             io.DisplaySize = imgui::sys::ImVec2::new(w as f32, h as f32);
-
-            let display_buffer_w = if w > 0 {
-                display_w as f32 / w as f32
-            } else {
-                0.
-            };
-            let display_buffer_h = if h > 0 {
-                display_h as f32 / h as f32
-            } else {
-                0.
-            };
-            io.DisplayFramebufferScale =
-                imgui::sys::ImVec2::new(display_buffer_w, display_buffer_h);
+            io.DisplayFramebufferScale = imgui::sys::ImVec2::new(1., 1.);
 
             const FREQUENCY: usize = 1000000;
             let current_time = sceKernelGetProcessTimeWide();
@@ -401,7 +383,7 @@ impl ImguiRenderer {
 
             for n in 0..count {
                 let cmd_list = &mut **(*draw_data).CmdLists.add(n as usize);
-                let vtx_buffer = cmd_list.VtxBuffer.Data;
+                let vtx_buffer = cmd_list.VtxBuffer.Data as *mut u8;
                 let mut idx_buffer = cmd_list.IdxBuffer.Data;
 
                 for cmd_i in 0..cmd_list.CmdBuffer.Size {
@@ -422,8 +404,7 @@ impl ImguiRenderer {
                         let cp = self.color_buffer;
                         let indices = idx_buffer;
                         for idx in 0..pcmd.ElemCount {
-                            let index =
-                                *(indices.add(std::mem::size_of::<ImDrawIdx>() * idx as usize));
+                            let index = *(indices.add(idx as usize));
                             let vertices = vtx_buffer.add(
                                 offset_of!(ImDrawVert, pos)
                                     + std::mem::size_of::<ImDrawVert>() * index as usize,
