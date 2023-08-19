@@ -44,7 +44,7 @@ impl ImguiRenderer {
             sceCtrlSetSamplingMode(SceCtrlPadInputMode::SCE_CTRL_MODE_ANALOG_WIDE);
 
             let io = &mut *imgui::sys::igGetIO();
-            io.MouseDrawCursor = true;
+            io.MouseDrawCursor = false;
 
             let imgui_mempool_size = 0x200000;
             let vertex_buffer =
