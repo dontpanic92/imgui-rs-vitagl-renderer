@@ -352,6 +352,7 @@ impl ImguiRenderer {
             let mut last_scissor_box = [0; 4];
             glGetIntegerv(GL_SCISSOR_BOX, last_scissor_box.as_mut_ptr());
 
+            glUseProgram(0);
             glEnable(GL_BLEND);
             glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
             glDisable(GL_CULL_FACE);
