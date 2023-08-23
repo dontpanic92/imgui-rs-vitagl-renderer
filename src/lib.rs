@@ -97,7 +97,7 @@ impl ImguiRenderer {
             let mut width = 0;
             let mut height = 0;
             let mut bytes_per_pixel = 0;
-            imgui::sys::ImFontAtlas_GetTexDataAsRGBA32(
+            imgui::sys::ImFontAtlas_GetTexDataAsAlpha8(
                 io.Fonts,
                 &mut pixels,
                 &mut width,
@@ -119,11 +119,11 @@ impl ImguiRenderer {
             glTexImage2D(
                 GL_TEXTURE_2D,
                 0,
-                GL_RGBA as i32,
+                GL_ALPHA as i32,
                 width,
                 height,
                 0,
-                GL_RGBA,
+                GL_ALPHA as u32,
                 GL_UNSIGNED_BYTE,
                 pixels as *const _,
             );
