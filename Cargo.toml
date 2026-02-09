@@ -6,7 +6,7 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-imgui = { version = "0.10", features = ["docking"] }
+imgui = "0.12"
 vitagl-sys = { git = "https://github.com/dontpanic92/vitagl-sys" }
 vitasdk-sys = { git = "https://github.com/dontpanic92/vitasdk-sys", branch = "yaobow"}
 
